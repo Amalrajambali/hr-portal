@@ -1,0 +1,80 @@
+/* navbar */
+.logo-style {
+  width: 22px;
+  margin-right: 12px;
+}
+
+.nav-style {
+  height: 66px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: #96edff; */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 255, 255, 1) 0%, rgba(150, 237, 255, 1) 100%);
+}
+
+.navbar-menustyle {
+  margin-right: 30px;
+  margin-top: 15px;
+}
+
+/* navbar */
+
+
+.adduser {
+  margin-left: auto;
+  margin-right: auto;
+  width: 451px;
+  margin-top: 4%;
+  border: solid;
+  border-radius: 15px;
+  border-style: groove;
+  padding: 26px;
+}
+
+.adduser-heading {
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  padding: 9px;
+  color: black;
+}
+
+.search {
+  width: 270px;
+  margin-left: 35px;
+  margin-top: 17px;
+}
+
+.usercard {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 40px;
+}
+
+.cardContent {
+  max-width: 60%;
+}
+.cardContent:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+
+.MainTab
+{
+  display: block;
+  margin-left: 30px;
+  padding-top: 25px;
+}
+
+.newuser
+{
+
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 31px;
+      height: 71px;
+}
