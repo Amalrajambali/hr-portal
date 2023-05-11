@@ -1,81 +1,178 @@
-import React from 'react'
+import axios from 'axios';
+import React, { ChangeEvent, useContext } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UsersContext } from '../context/AppContext';
+
+let initialState = {
+  name: "",
+  email: "",
+  department: "",
+  designation:"",
+  gender: "",
+  city: "",
+  Title: "",
+  phone: 0
+}
 
 function AddUsers() {
-    return (
-        <div className='newuser'>
-            <section className="vh-100" style={{backgroundColor: "#eee"}}>
-            <div className="container h-100">
-                <div className="row d-flex justify-content-center align-items-center">
-                    <div className="col-lg-12 col-xl-11">
-                        <div className="card text-black" style={{borderRadius: "25px"}}>
-                            <div className="card-body p-md-5">
-                                <div className="row justify-content-center">
-                                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  const [form, setForm] = useState(initialState)
+  const context = useContext(UsersContext)
+  const navigate=useNavigate()
+  const handleChange = (e: ChangeEvent<any>): void => {
+    const { name: key, value } = e.target;
+    setForm({ ...form, [key]: value, Title: "user" });
+  }
 
-                                        <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (form.name) {
+      console.log("hii")
+      try {
+        let addedUser = await axios.post(`http://localhost:8081/users/adduser`, form)
+        context?.userData?.push(form)
+        navigate(`/user/${addedUser.data.data.Id}`)
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
+  }
 
-                                        <form className="mx-1 mx-md-4">
+  return (
+    <div className='newuser' >
+      <section className="vh-100" style={{ backgroundColor: "ghostwhite", width: "100%" }} >
+        <div className="container h-100">
+          <div className="row d-flex justify-content-center align-items-center">
+            <div className="col-lg-12 col-xl-11">
+              <div className="card text-black" style={{ borderRadius: "25px" }}>
+                <div className="card-body md-5 p-2 pl-3">
+                  <div className="row justify-content-center">
+                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">User Registration</p>
 
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="text" id="form3Example1c" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example1c">Your Name</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="email" id="form3Example3c" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example3c">Your Email</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="password" id="form3Example4c" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example4c">Password</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-key fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="password" id="form3Example4cd" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example4cd">Repeat your password</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="form-check d-flex justify-content-center mb-5">
-                                                <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                                <label className="form-check-label" htmlFor="form2Example3">
-                                                    I agree all statements in <a href="#!">Terms of service</a>
-                                                </label>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                <button type="button" className="btn btn-primary btn-lg">Register</button>
-                                            </div>
-
-                                        </form>
-
-                                    </div>
-                                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                            className="img-fluid" alt="Sample image"/>
-
-                                    </div>
-                                </div>
+                      <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <label className="label">Name</label>
+                            <div className="control">
+                              <input className="input" type="text" placeholder="Text input" name="name" onChange={handleChange} />
                             </div>
+                          </div>
                         </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <label className="label">Email</label>
+                            <div className="control has-icons-left has-icons-right">
+                              <input className="input " type="email" placeholder="Email input" name="email" onChange={handleChange} />
+                              <span className="icon is-small is-left">
+                                <i className="fas fa-envelope"></i>
+                              </span>
+                              <span className="icon is-small is-right">
+                                <i className="fas fa-exclamation-triangle"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <label className="label">Department</label>
+                            <div className="control">
+                              <input className="input" type="text" placeholder="Department" name="department" onChange={handleChange} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <label className="label">Designation</label>
+                            <div className="control">
+                              <input className="input" type="text" placeholder="Department" name="designation" onChange={handleChange} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <div className="field" style={{ display: "flex", justifyContent: "space-between" }}>
+                              <label className="label">District</label>
+                              <label className="label">Gender</label>
+                            </div>
+                            <div className="field" style={{ display: "flex" }}>
+                              <div className="control">
+                                <div className="select">
+                                  <select onChange={handleChange} name="city">
+                                    <option >Select City</option>
+                                    <option value="Kozhikode">Kozhikode</option>
+                                    <option value="Malappuram">Malappuram</option>
+                                    <option value="Thrissur"> Thrissur</option>
+                                    <option value="Ernakulam">Ernakulam</option>
+                                    <option value="Kannur">Kannur</option>
+                                    <option value="Kollam">Kollam</option>
+                                    <option value="Trivandrum">Trivandrum</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div className="control" style={{ marginLeft: "31%" }}>
+                                <label className="radio">
+                                  <input type="radio" name="gender" onChange={handleChange} value="Male" />
+                                  Male
+                                </label>
+                                <label className="radio">
+                                  <input type="radio" name="gender" onChange={handleChange} value="Female" />
+                                  Female
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <label className="label">Phone</label>
+                            <div className="control">
+                              <input className="input" type="number" placeholder="Phone Number" name="phone" onChange={handleChange} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="form-check d-flex justify-content-center mb-5">
+                          <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                          <label className="form-check-label" htmlFor="form2Example3">
+                            I agree all statements in <a href="#!">Terms of service</a>
+                          </label>
+                        </div>
+
+                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <button type="submit" className="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                      </form>
+
                     </div>
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                      <img src="https://img.freepik.com/free-vector/contact-us-concept-landing-page_52683-18636.jpg?size=626&ext=jpg&ga=GA1.1.446136658.1683779267&semt=ais"
+                        className="img-fluid" alt="Sample image" />
+
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section></div>
-    )
+          </div>
+        </div>
+      </section></div>
+  )
 }
 
 export default AddUsers

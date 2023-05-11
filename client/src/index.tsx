@@ -5,15 +5,16 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bulma/css/bulma.min.css';
+import AppContext from './context/AppContext';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <AppContext>
     <App />
-  </React.StrictMode>
+  </AppContext>
 );
 
 

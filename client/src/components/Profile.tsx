@@ -1,8 +1,10 @@
+import axios from 'axios';
+import { log } from 'console';
 import * as React from 'react';
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { UsersContext } from '../context/AppContext';
 // import PulseLoader from "react-spinners/ClipLoader";
-
 
 interface IUserdata {
     phone: number;
@@ -24,36 +26,41 @@ function Profile({ id }: idData) {
     const [isUpdate, isSetUpdated] = useState(false);
     const [image, setImage] = useState<any | null>(null);
     const [currentUser, setCurrentUser] = useState<IUserdata>()
-    const [isEdited,setIsEdited]=useState(false)
+    const [isEdited, setIsEdited] = useState(false)
     const fileNamePath = encodeURI(image?.name);
     const navigate = useNavigate();
+    const context = useContext(UsersContext)
 
-    // const getSingleUser = async () => {
-    //     const item: any = await sp.web.lists.getByTitle("users").items.getById(+id)();
-    //     setCurrentUser(item)
-    // }
-
+    const getSingleUser = async () => {
+        try {
+            let user: any = await axios.get(`http://localhost:8081/users/${id}`)
+            setCurrentUser(user.data)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+    getSingleUser()
 
 
     const deleteUserHandler = async () => {
-    //     const list = await sp.web.lists.getByTitle("users");
-    //     list.items.getById(+id).delete();
 
-    //     const deletedUser = context.userData.filter(user => user.Id !== +id)
-    //     context.setUserData(deletedUser);
-    //     navigate("/");
-    // }
+        try {
+            let allUser = await axios.delete(`http://localhost:8081/users/delete/${id}`)
+            context?.getAllUsers()
+            // const deletedUser = context?.userData.filter((user) => user.Id !== id)
+            // context?.setUserData(deletedUser);
+            navigate("/");
 
-    // //input change
-    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-
-    //     const { name: key, value } = e.target;
-    //     setCurrentUser({ ...currentUser, [key]: value });
+        }
+        catch (e) {
+            console.log(e)
+        }
 
     }
 
-     //input change
-     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    //input change
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
         // const { name: key, value } = e.target;
         // setCurrentUser({ ...currentUser, [key]: value });
@@ -93,7 +100,7 @@ function Profile({ id }: idData) {
                                             borderTopLeftRadius: ".5rem", borderBottomLeftRadius: ".5rem", backgroundColor: "steelblue",
                                             borderRadius: "2px"
                                         }}>
-                                        <img src={currentUser?.imageUrl ? currentUser.imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYqfZBDYOPW8hB6ZYxcx3UZ0mvR-mxH8MABg&usqp=CAU"}
+                                        <img src={currentUser?.imageUrl ? `https://2mxff3.sharepoint.com${currentUser.imageUrl}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYqfZBDYOPW8hB6ZYxcx3UZ0mvR-mxH8MABg&usqp=CAU"}
                                             alt="Avatar" className="img-fluid my-5" style={{ width: "100px", borderRadius: "50%" }} />
 
 

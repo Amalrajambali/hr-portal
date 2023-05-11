@@ -70,7 +70,7 @@ function AddUser() {
                 </div>
             </div>
 
-
+            <input type="password" id="form3Example4cd" className="form-control" />
             <div className="field" style={{ display: "flex" ,justifyContent:"space-between"}}>
                 <label className="label">District</label>
                 <label className="label">Gender</label>
