@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Profile from './Profile';
 import Documents from './Documents';
 import { useNavigate, useParams } from 'react-router-dom';
+import SingleUserNav from './SingleUserNav';
 
 interface RouteParams extends Record<string, string | undefined> {
     id: string;
@@ -12,8 +13,8 @@ interface RouteParams {
 
 function SingleuserTabs() {
     const { id } = useParams<RouteParams>();
-    const [basicActive, setBasicActive] = useState("tab2");
-    const navigate=useNavigate()
+    const [basicActive, setBasicActive] = useState("profileTab");
+    const navigate = useNavigate()
 
     const handleBasicClick = (value: string) => {
         if (value === basicActive) {
@@ -24,19 +25,19 @@ function SingleuserTabs() {
     }
 
     let Tab;
-    if (basicActive === "tab2") {
-        Tab = <Profile id={id}/>
+    if (basicActive === "profileTab") {
+        Tab = <Profile id={id} />
     }
-    else
-    {
-        Tab=<Documents/>
+    else {
+        Tab = <Documents id={id} />
     }
 
     return (
         <div className='MainTab'>
-            <button  className='tabBtn button is-success ml-1' onClick={() => navigate('/') }>Back</button>
-            <button  className={basicActive === 'tab2'? 'button is-primary is-light ml-1':"tabBtn button is-success ml-1"} onClick={() => handleBasicClick('tab2')}>Profile</button>
-            <button  className={basicActive === 'tab3'? 'button is-primary is-light ml-1':"tabBtn button is-success ml-1"} onClick={() => handleBasicClick('tab3')}>documents</button>
+            <button className='tabBtn button is-success ml-1' onClick={() => navigate('/')}>Back</button>
+            <button className={basicActive === 'profileTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('profileTab')}>Profile</button>
+            <button className={basicActive === 'documentTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('documentTab')}>documents</button>
+            <SingleUserNav id={ id } />
             {Tab}
         </div>
 

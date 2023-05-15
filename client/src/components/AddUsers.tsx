@@ -1,14 +1,15 @@
-import axios from 'axios';
 import React, { ChangeEvent, useContext } from 'react'
 import { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UsersContext } from '../context/AppContext';
+import Loader from './Loader';
 
 let initialState = {
   name: "",
   email: "",
   department: "",
-  designation:"",
+  designation: "",
   gender: "",
   city: "",
   Title: "",
@@ -18,25 +19,36 @@ let initialState = {
 function AddUsers() {
   const [form, setForm] = useState(initialState)
   const context = useContext(UsersContext)
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+
   const handleChange = (e: ChangeEvent<any>): void => {
     const { name: key, value } = e.target;
     setForm({ ...form, [key]: value, Title: "user" });
   }
 
+  //Form Submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (form.name) {
-      console.log("hii")
+      context?.setIsLoading(true)
       try {
         let addedUser = await axios.post(`http://localhost:8081/users/adduser`, form)
-        context?.userData?.push(form)
+        context?.getAllUsers()
+        context?.setIsLoading(false)
         navigate(`/user/${addedUser.data.data.Id}`)
       }
       catch (e) {
+        context?.setIsLoading(true)
         console.log(e)
       }
     }
+  }
+
+  // Loading spinner
+  if (context?.isLoading) {
+    return (<>
+      <Loader />
+    </>)
   }
 
   return (
@@ -57,7 +69,7 @@ function AddUsers() {
                           <div className="form-outline flex-fill mb-0">
                             <label className="label">Name</label>
                             <div className="control">
-                              <input className="input" type="text" placeholder="Text input" name="name" onChange={handleChange} />
+                              <input className="input" type="text" placeholder="Text input" name="name" onChange={handleChange} required />
                             </div>
                           </div>
                         </div>
@@ -67,7 +79,7 @@ function AddUsers() {
                           <div className="form-outline flex-fill mb-0">
                             <label className="label">Email</label>
                             <div className="control has-icons-left has-icons-right">
-                              <input className="input " type="email" placeholder="Email input" name="email" onChange={handleChange} />
+                              <input className="input " type="email" placeholder="Email input" name="email" onChange={handleChange} required />
                               <span className="icon is-small is-left">
                                 <i className="fas fa-envelope"></i>
                               </span>
@@ -93,7 +105,7 @@ function AddUsers() {
                           <div className="form-outline flex-fill mb-0">
                             <label className="label">Designation</label>
                             <div className="control">
-                              <input className="input" type="text" placeholder="Department" name="designation" onChange={handleChange} />
+                              <input className="input" type="text" placeholder="Department" name="designation" onChange={handleChange} required />
                             </div>
                           </div>
                         </div>
@@ -140,22 +152,14 @@ function AddUsers() {
                           <div className="form-outline flex-fill mb-0">
                             <label className="label">Phone</label>
                             <div className="control">
-                              <input className="input" type="number" placeholder="Phone Number" name="phone" onChange={handleChange} />
+                              <input className="input" type="number" placeholder="Phone Number" name="phone" onChange={handleChange} required />
                             </div>
                           </div>
-                        </div>
-
-                        <div className="form-check d-flex justify-content-center mb-5">
-                          <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                          <label className="form-check-label" htmlFor="form2Example3">
-                            I agree all statements in <a href="#!">Terms of service</a>
-                          </label>
                         </div>
 
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button type="submit" className="btn btn-primary btn-lg">Register</button>
                         </div>
-
                       </form>
 
                     </div>

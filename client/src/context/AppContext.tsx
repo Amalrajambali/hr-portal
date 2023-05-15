@@ -3,7 +3,6 @@ import { useState, ReactNode, useEffect } from 'react'
 import { createContext } from 'react'
 import axios from 'axios';
 
-
 interface IUser {
   Id?: number;
   name: string;
@@ -12,9 +11,10 @@ interface IUser {
   city: string,
   email: string,
   phone: number,
-  gender:string,
+  gender: string,
   imageUrl?: string
 }
+
 interface ISearch {
   name: string,
   department: string,
@@ -22,7 +22,7 @@ interface ISearch {
   city: string,
   email: string,
   phone: number,
-  gender:string,
+  gender: string,
   imageUrl?: string
 }
 
@@ -32,10 +32,9 @@ interface MyContextType {
   search: ISearch[],
   setSearch: React.Dispatch<React.SetStateAction<ISearch[]>>,
   getAllUsers: Function,
-  isLoading:boolean,
+  isLoading: boolean,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-
 
 
 export const UsersContext = createContext<MyContextType | null>(null)
@@ -44,30 +43,26 @@ function AppContext({ children }: { children: ReactNode }) {
 
   const [userData, setUserData] = useState<IUser[]>([]);
   const [search, setSearch] = useState<ISearch[]>([]);
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const getAllUsers = async () => {
-    setIsLoading(true)
-    try{
-      let allUser=await axios.get("http://localhost:8081/users")
-      setUserData(allUser.data)
+    try {
+      setIsLoading(true)
+      let allUser = await axios.get("http://localhost:8081/users")
       setIsLoading(false)
+      setUserData(allUser.data)
     }
-    catch(e)
-    {
+    catch (e) {
+      setIsLoading(false)
       console.log(e)
     }
   }
 
   useEffect(() => {
     getAllUsers()
-  }, [userData])
+  }, [])
 
-  
-
-
-
-  return <UsersContext.Provider value={{ userData, setUserData, search, setSearch, getAllUsers ,isLoading}}>
+  return <UsersContext.Provider value={{ userData, setUserData, search, setSearch, getAllUsers, isLoading, setIsLoading }}>
     {children}
   </UsersContext.Provider>
 }

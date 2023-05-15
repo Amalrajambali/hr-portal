@@ -13,9 +13,7 @@ const SpfxConnection = () => {
         fetchClientFactory: () =>
           new SPFetchClient(
             "https://2mxff3.sharepoint.com/sites/Amalraj",
-  
             "82f6321f-641b-4457-b69b-a1daeb46c101",
-  
             "tbS1nEE37MNxRwVQJIS1XDrcF7/GPxF5cCeupotUWw0="
           ),
       },

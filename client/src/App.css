@@ -45,6 +45,7 @@
   width: 270px;
   margin-left: 35px;
   margin-top: 17px;
+  display: flex;
 }
 
 .usercard {
@@ -84,4 +85,46 @@
   display: grid;
   grid-template-columns: repeat(4,1fr);
   gap: 20px;
+}
+
+.documents
+{
+  width: 55%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 40px;
+}
+.doc-upload
+{
+  background-color: deepskyblue;
+  color: white;
+  border: none;
+  padding: 9px;
+  border-radius: 8px;
+}
+.upload-btns
+{
+  display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+}
+
+.usernav
+{
+  display: flex;
+  margin-top: 11px;
+  /* margin-bottom: 11px; */
+  margin-left: 5px;
+  border: solid;
+  max-width: 153px;
+  padding: 5px;
+  border-radius: 5px;
+  border-width: thin;
+  height: 31px;
+  width: auto;
+  padding-left: 12px;
+}
+.usernav-img{
+    border-radius: 50%;
+    margin-right: 14px;
 }
