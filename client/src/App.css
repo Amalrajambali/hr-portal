@@ -112,8 +112,7 @@
 .usernav
 {
   display: flex;
-  margin-top: 11px;
-  /* margin-bottom: 11px; */
+  margin-bottom: 11px;
   margin-left: 5px;
   border: solid;
   max-width: 153px;

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react";
+import { useEffect, useState } from "react";
   
 interface IUser {
     Id?: number;
@@ -31,18 +31,19 @@ function SingleUserNav({ id }:idData) {
 
     const [currentUser, setCurrentUser] = useState<IUser>(initialState)
     const getSingleUser = async () => {
-       // context?.setIsLoading(true)
         try {
           let user: any = await axios.get(`http://localhost:8081/users/${id}`)
-         // context?.setIsLoading(false)
           setCurrentUser(user.data)
         }
         catch (e) {
-         // context?.setIsLoading(false)
           console.log(e)
         }
       }
-      getSingleUser();
+      
+      useEffect(()=>{
+        getSingleUser();
+      },[id])
+      
     return (
 
         <div className="usernav">

@@ -35,7 +35,7 @@ let initialState = {
 function Profile({ id }: idData) {
   const [isUpdate, isSetUpdated] = useState(false);
   const [image, setImage] = useState<any | null>(null);
-  const [currentUser, setCurrentUser] = useState<IUser>(initialState)
+  const [currentUser, setCurrentUser] = useState<IUser | any>(initialState)
   const [isEdited, setIsEdited] = useState(false)
   const fileNamePath = encodeURI(image?.name);
   const navigate = useNavigate();
@@ -75,7 +75,6 @@ function Profile({ id }: idData) {
   const handleInputChange = (e: React.ChangeEvent<any>): void => {
     const { name: key, value } = e.target;
     setCurrentUser({ ...currentUser, [key]: value });
-
   }
 
   //On Image Change
@@ -86,14 +85,15 @@ function Profile({ id }: idData) {
     }
   };
 
+  const userData = new FormData();
+  userData.append("userImage", image)
+  userData.append("userData", JSON.stringify(currentUser))
+
   //Save changes
   const editUserHandler = async () => {
-    // let addedImage;
-    // if (image) {
-    //     addedImage = await sp.web.getFolderByServerRelativePath(`usersLibrary/${id}`).files.addUsingPath(fileNamePath, image, { Overwrite: true });
-    // }
+
     try {
-      let updatedUser = await axios.patch(`http://localhost:8081/users/update/${id}`, currentUser)
+      let updatedUser = await axios.patch(`http://localhost:8081/users/update/${id}`, userData)
       context?.getAllUsers()
       navigate("/");
     }

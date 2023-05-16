@@ -38,7 +38,7 @@ function AddUsers() {
         navigate(`/user/${addedUser.data.data.Id}`)
       }
       catch (e) {
-        context?.setIsLoading(true)
+        context?.setIsLoading(false)
         console.log(e)
       }
     }

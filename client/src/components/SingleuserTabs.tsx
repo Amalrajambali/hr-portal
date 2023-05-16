@@ -34,10 +34,10 @@ function SingleuserTabs() {
 
     return (
         <div className='MainTab'>
+            <SingleUserNav id={ id } />
             <button className='tabBtn button is-success ml-1' onClick={() => navigate('/')}>Back</button>
             <button className={basicActive === 'profileTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('profileTab')}>Profile</button>
             <button className={basicActive === 'documentTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('documentTab')}>documents</button>
-            <SingleUserNav id={ id } />
             {Tab}
         </div>
 
