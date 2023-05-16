@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UsersContext } from '../context/AppContext';
 import Loader from './Loader';
+import DeleteModal from './modal/DeleteModal';
 
 interface IUser {
   Id?: number;
@@ -37,6 +38,7 @@ function Profile({ id }: idData) {
   const [image, setImage] = useState<any | null>(null);
   const [currentUser, setCurrentUser] = useState<IUser | any>(initialState)
   const [isEdited, setIsEdited] = useState(false)
+  const [modalActive,setModalActive]=useState(false)
   const fileNamePath = encodeURI(image?.name);
   const navigate = useNavigate();
   const context = useContext(UsersContext)
@@ -165,9 +167,10 @@ function Profile({ id }: idData) {
                             </div>
                             <div className="row pt-1">
                               <div className="col-6 mb-3">
-                                <button type="button" className="btn btn-danger" onClick={deleteUserHandler}>Delete</button>
+                                <button type="button" className="btn btn-danger" onClick={()=>setModalActive(true)}>Delete</button>
                               </div>
                               <div className="col-6 mb-3">
+                              <DeleteModal deleteUserHandler={deleteUserHandler} modalActive={modalActive} setModalActive={setModalActive}/>
                                 <button type="button" className="btn btn-warning" onClick={() => isSetUpdated(true)}>Edit</button>
                               </div>
                             </div>
