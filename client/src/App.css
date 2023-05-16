@@ -42,12 +42,16 @@
 }
 
 .search {
-  width: 270px;
   margin-left: 35px;
   margin-top: 17px;
   display: flex;
+  justify-content: space-between;
 }
-
+.tot-users{
+   background-color: darkgray;
+    padding: 7px;
+    border-radius: 8px;
+}
 .usercard {
   margin-left: 50px;
   margin-right: 50px;

@@ -11,10 +11,16 @@ function SearchUsers() {
             context?.setSearch(searchItems)
         }
     }
+    const TotalUsers=context?.userData?.length
+
     return (
         <div className="search">
-            <input className="input is-primary" type="text" placeholder="Search" onChange={handleChange} />
-            <h2># 5 users</h2>
+            <div>
+                <input className="input is-primary" type="text" placeholder="Search" onChange={handleChange} />
+             </div>
+            <div className="m-2 tot-users">
+                <h3> # {TotalUsers} Users</h3>
+            </div>
         </div>
 
     )

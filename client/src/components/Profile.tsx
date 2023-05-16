@@ -137,7 +137,7 @@ function Profile({ id }: idData) {
 
                         {!isUpdate ?
                           <>
-                            <h6>Information</h6>
+                            <h6><b>Information</b></h6>
                             <hr className="mt-0 mb-4" />
                             <div className="row pt-1">
                               <div className="col-6 mb-3">
@@ -149,7 +149,8 @@ function Profile({ id }: idData) {
                                 <p className="text-muted">{currentUser?.city}</p>
                               </div>
                             </div>
-                            <h6>Contact</h6>
+                            <hr style={{background:"darkblue"}}></hr>
+                            <h6><b>Contact</b></h6>
                             <hr className="mt-0 mb-4" />
                             <div className="row pt-1">
                               <div className="col-6 mb-3">
@@ -209,11 +210,11 @@ function Profile({ id }: idData) {
 
                             <div className="row pt-1">
                               <div className="col-6 mb-3">
-                                <button type="button" className="btn btn-secondary" onClick={() => isSetUpdated(false)}>cancel</button>
+                                <button type="button" className="btn btn-secondary" onClick={() => isSetUpdated(false)}>Cancel</button>
                               </div>
 
                               <div className="col-6 mb-3">
-                                <button type="button" className="btn btn-success" onClick={editUserHandler}>save</button>
+                                <button type="button" className="btn btn-success" onClick={editUserHandler}>Save</button>
                               </div>
                             </div>
                           </form>}
