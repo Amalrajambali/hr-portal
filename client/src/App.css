@@ -47,11 +47,16 @@
   display: flex;
   justify-content: space-between;
 }
-.tot-users{
-   background-color: darkgray;
-    padding: 7px;
-    border-radius: 8px;
+
+.tot-users {
+  background-color: lightslategrey;
+  padding: 7px;
+  border-radius: 8px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
 }
+
 .usercard {
   margin-left: 50px;
   margin-right: 50px;
@@ -61,6 +66,7 @@
 .cardContent {
   max-width: 60%;
 }
+
 .cardContent:hover {
   cursor: pointer;
   transform: scale(1.1);
@@ -68,53 +74,48 @@
 }
 
 
-.MainTab
-{
+.MainTab {
   display: block;
   margin-left: 30px;
   padding-top: 25px;
 }
 
-.newuser
-{
-
-      background-color: ghostwhite;
-      margin-right: auto;
-      margin-left: auto;
-      padding-top: 40px;
-      height: 71px;
+.newuser {
+  background-color: ghostwhite;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 40px;
+  height: 71px;
 }
 
-.grid{
+.grid {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
-.documents
-{
+.documents {
   width: 55%;
   margin-right: auto;
   margin-left: auto;
   margin-top: 40px;
 }
-.doc-upload
-{
+
+.doc-upload {
   background-color: deepskyblue;
   color: white;
   border: none;
   padding: 9px;
   border-radius: 8px;
 }
-.upload-btns
-{
+
+.upload-btns {
   display: flex;
-    justify-content: center;
-    padding-bottom: 12px;
+  justify-content: center;
+  padding-bottom: 12px;
 }
 
-.usernav
-{
+.usernav {
   display: flex;
   margin-bottom: 11px;
   margin-left: 5px;
@@ -127,7 +128,19 @@
   width: auto;
   padding-left: 12px;
 }
-.usernav-img{
-    border-radius: 50%;
-    margin-right: 14px;
+
+.usernav-img {
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.download-button{
+font-size: 25px;
+
+}
+.download-button:hover{
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
 }

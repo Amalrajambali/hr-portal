@@ -4,10 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../context/AppContext";
 import Loader from "./Loader";
-import SuccessToast from "./toast/SuccessToast";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { error } from "console";
 
 let initialState = {
   name: "",
@@ -33,7 +31,6 @@ function AddUsers() {
   //Form Submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (form.name) {
       context?.setIsLoading(true);
       try {
@@ -43,7 +40,7 @@ function AddUsers() {
         );
         context?.getAllUsers();
         toast.success("User added successfully!", {
-          autoClose:1000,
+          autoClose: 1000,
           onClose: () => {
             navigate(`/user/${addedUser.data.data.Id}`);
             context?.setIsLoading(false);
@@ -152,7 +149,7 @@ function AddUsers() {
                               <input
                                 className="input"
                                 type="text"
-                                placeholder="Department"
+                                placeholder="Designation"
                                 name="designation"
                                 onChange={handleChange}
                                 required

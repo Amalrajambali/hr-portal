@@ -4,7 +4,7 @@ import { UsersContext } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineDownload } from "react-icons/ai";
 import Loader from './Loader';
-
+import qs from "qs"
 type ID = {
   id?: string
 }
@@ -57,6 +57,28 @@ function Documents({ id }: ID) {
     }
   }
 
+  //Dowmload document
+  const handleDownload = async (url: string) => {
+    try {
+      let res = await axios.get("http://localhost:8081/doc/download", {
+        params: { url },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { encode: false });
+        },
+        responseType: "blob",
+      });
+      const blob = new Blob([res.data]);
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.setAttribute("download", url.split("/").pop() || "");
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //Loading Spinner
   if (context?.isLoading) {
     return (<>
@@ -84,16 +106,16 @@ function Documents({ id }: ID) {
           </tr>
         </thead>
         <tbody>
-          {allDocs.length!=0?
+          {allDocs.length != 0 ?
             allDocs.map((doc: any, i: number) => (
               <tr>
                 <th scope="row">{i + 1}</th>
                 <td>{doc.Name}</td>
-                <td>{doc.TimeCreated}</td>
-                <td style={{ fontSize: "25px" }}><AiOutlineDownload /></td>
+                <td>{doc.TimeCreated.slice(0, 10)}</td>
+                <td ><AiOutlineDownload className='download-button' onClick={() => handleDownload(doc.ServerRelativeUrl)} /></td>
               </tr>
             ))
-          :<h1>No files found!!!!!......</h1>}
+            : <h1>No files found!!!!!......</h1>}
         </tbody>
       </table>
     </div>

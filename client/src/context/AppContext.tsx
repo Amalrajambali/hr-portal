@@ -45,10 +45,11 @@ function AppContext({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState<ISearch[]>([]);
   const [isLoading, setIsLoading] = useState(false)
 
+  let allUser
   const getAllUsers = async () => {
     try {
       setIsLoading(true)
-      let allUser = await axios.get("http://localhost:8081/users")
+      allUser = await axios.get("http://localhost:8081/users")
       setIsLoading(false)
       setUserData(allUser.data)
     }
@@ -60,7 +61,7 @@ function AppContext({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     getAllUsers()
-  }, [])
+  }, [allUser])
 
   return <UsersContext.Provider value={{ userData, setUserData, search, setSearch, getAllUsers, isLoading, setIsLoading }}>
     {children}

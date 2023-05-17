@@ -5,43 +5,43 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SingleUserNav from './SingleUserNav';
 
 interface RouteParams extends Record<string, string | undefined> {
-    id: string;
+  id: string;
 }
 interface RouteParams {
-    id: string;
+  id: string;
 }
 
 function SingleuserTabs() {
-    const { id } = useParams<RouteParams>();
-    const [basicActive, setBasicActive] = useState("profileTab");
-    const navigate = useNavigate()
+  const { id } = useParams<RouteParams>();
+  const [basicActive, setBasicActive] = useState("profileTab");
+  const navigate = useNavigate()
 
-    const handleBasicClick = (value: string) => {
-        if (value === basicActive) {
-            return;
-        } else {
-            setBasicActive(value)
-        }
+  const handleBasicClick = (value: string) => {
+    if (value === basicActive) {
+      return;
+    } else {
+      setBasicActive(value)
     }
+  }
 
-    let Tab;
-    if (basicActive === "profileTab") {
-        Tab = <Profile id={id} />
-    }
-    else {
-        Tab = <Documents id={id} />
-    }
+  let Tab;
+  if (basicActive === "profileTab") {
+    Tab = <Profile id={id} />
+  }
+  else {
+    Tab = <Documents id={id} />
+  }
 
-    return (
-        <div className='MainTab'>
-            <SingleUserNav id={ id } />
-            <button className='tabBtn button is-success ml-1' onClick={() => navigate('/')}>Back</button>
-            <button className={basicActive === 'profileTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('profileTab')}>Profile</button>
-            <button className={basicActive === 'documentTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('documentTab')}>documents</button>
-            {Tab}
-        </div>
+  return (
+    <div className='MainTab'>
+      <SingleUserNav id={id} />
+      <button className='tabBtn button is-success ml-1' onClick={() => navigate('/')}>Back</button>
+      <button className={basicActive === 'profileTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('profileTab')}>Profile</button>
+      <button className={basicActive === 'documentTab' ? 'button is-primary is-light ml-1' : "tabBtn button is-success ml-1"} onClick={() => handleBasicClick('documentTab')}>Documents</button>
+      {Tab}
+    </div>
 
-    )
+  )
 }
 
 

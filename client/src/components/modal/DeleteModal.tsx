@@ -7,7 +7,7 @@ function DeleteModal({ modalActive, deleteUserHandler, setModalActive }: any) {
         <div className="modal-background"></div>
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Are you sure You want to Delete...?</p>
+            <p className="modal-card-title">Are You Sure You Want To Delete...?</p>
             <button className="delete" aria-label="close" onClick={() => setModalActive(false)}></button>
           </header>
           <footer className="modal-card-foot">

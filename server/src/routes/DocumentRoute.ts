@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import { sp } from "@pnp/sp-commonjs";
+import fileType from "../fileFormat/fileType";
 
 const app = express.Router();
 const multer = require("multer");
@@ -42,5 +43,19 @@ app.post("/:id", upload.single("filename"), async (req: Request, res: Response) 
         }
     }
 });
+
+app.get("/download", async (req: Request, res: Response) => {
+    const serverRelativePath = req.query.serverRelativePath as string;
+    const file = sp.web.getFileByServerRelativePath(serverRelativePath);
+    const buffer: ArrayBuffer = await file.getBuffer();
+    console.log(buffer);
+
+    const fileName = serverRelativePath.split("/").pop() || "";
+    const contentType = fileType(fileName);
+
+    res.setHeader("Content-disposition", `attachment; filename=${fileName}`);
+    res.setHeader("Content-type", contentType);
+    res.status(200).send(Buffer.from(buffer));
+})
 
 module.exports = app;
