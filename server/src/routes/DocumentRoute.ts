@@ -48,11 +48,8 @@ app.get("/download", async (req: Request, res: Response) => {
     const serverRelativePath = req.query.serverRelativePath as string;
     const file = sp.web.getFileByServerRelativePath(serverRelativePath);
     const buffer: ArrayBuffer = await file.getBuffer();
-    console.log(buffer);
-
     const fileName = serverRelativePath.split("/").pop() || "";
     const contentType = fileType(fileName);
-
     res.setHeader("Content-disposition", `attachment; filename=${fileName}`);
     res.setHeader("Content-type", contentType);
     res.status(200).send(Buffer.from(buffer));

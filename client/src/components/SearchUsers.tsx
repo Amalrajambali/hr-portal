@@ -11,6 +11,7 @@ function SearchUsers() {
       context?.setSearch(searchItems)
     }
   }
+
   const TotalUsers = context?.userData?.length
 
   return (
@@ -22,7 +23,6 @@ function SearchUsers() {
         <h3> # {TotalUsers} Users</h3>
       </div>
     </div>
-
   )
 }
 

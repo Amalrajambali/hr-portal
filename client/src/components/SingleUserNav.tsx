@@ -28,8 +28,8 @@ let initialState = {
   phone: 0
 }
 function SingleUserNav({ id }: idData) {
-
   const [currentUser, setCurrentUser] = useState<IUser>(initialState)
+
   const getSingleUser = async () => {
     try {
       let user: any = await axios.get(`http://localhost:8081/users/${id}`)
@@ -43,9 +43,9 @@ function SingleUserNav({ id }: idData) {
   useEffect(() => {
     getSingleUser();
   }, [id])
+  
 
   return (
-
     <div className="usernav">
       <h3 className="pl-1">#</h3>
       <img src={currentUser?.imageUrl ? `https://2mxff3.sharepoint.com${currentUser.imageUrl}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYqfZBDYOPW8hB6ZYxcx3UZ0mvR-mxH8MABg&usqp=CAU"}

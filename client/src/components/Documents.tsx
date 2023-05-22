@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { UsersContext } from '../context/AppContext'
-import { useNavigate } from 'react-router-dom'
 import { AiOutlineDownload } from "react-icons/ai";
-import Loader from './Loader';
+import Loader from './loader/Loader';
 import qs from "qs"
 type ID = {
   id?: string
@@ -13,7 +12,6 @@ function Documents({ id }: ID) {
   const [docFiles, setDocFiles] = useState<any>()
   const [allDocs, setAllDocs] = useState<any>([])
   const context = useContext(UsersContext)
-  const navigate = useNavigate()
 
   //Get all the documents using id
   const getDocs = async () => {
@@ -57,7 +55,7 @@ function Documents({ id }: ID) {
     }
   }
 
-  //Dowmload document
+  //Download document
   const handleDownload = async (url: string) => {
     try {
       let res = await axios.get("http://localhost:8081/doc/download", {

@@ -1,4 +1,3 @@
-import SingleUserNav from '../components/SingleUserNav'
 import SingleuserTabs from '../components/SingleuserTabs'
 
 function SingleUserPage() {

@@ -2,7 +2,6 @@ import express, { Application, Request, Response } from "express";
 import { sp } from "@pnp/sp-commonjs";
 
 const app = express.Router();
-
 const multer = require("multer");
 const fs = require("fs")
 
@@ -54,6 +53,9 @@ app.delete("/delete/:id", async (req: Request, res: Response) => {
     try {
         const list = await sp.web.lists.getByTitle("users");
         list.items.getById(+id).delete();
+        const usersLibrary = sp.web.lists.getByTitle("usersLibrary");
+        const folder = await usersLibrary.rootFolder.folders.getByName(id);
+        await folder.delete();
         res.send("User Deleted")
     } catch (e) {
         res.send(e);
@@ -61,7 +63,6 @@ app.delete("/delete/:id", async (req: Request, res: Response) => {
 })
 
 app.patch("/update/:id", upload.single("userImage"), async (req: Request, res: Response) => {
-
     const { id } = req.params;
     const data = JSON.parse(req.body.userData);
     try {

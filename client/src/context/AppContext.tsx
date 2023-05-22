@@ -26,6 +26,11 @@ interface ISearch {
   imageUrl?: string
 }
 
+interface ICity{
+  _id:string,
+  city:string
+}
+
 interface MyContextType {
   userData: IUser[],
   setUserData: React.Dispatch<React.SetStateAction<IUser[]>>,
@@ -33,8 +38,9 @@ interface MyContextType {
   setSearch: React.Dispatch<React.SetStateAction<ISearch[]>>,
   getAllUsers: Function,
   isLoading: boolean,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  cities:ICity[],
+  }
 
 
 export const UsersContext = createContext<MyContextType | null>(null)
@@ -44,6 +50,7 @@ function AppContext({ children }: { children: ReactNode }) {
   const [userData, setUserData] = useState<IUser[]>([]);
   const [search, setSearch] = useState<ISearch[]>([]);
   const [isLoading, setIsLoading] = useState(false)
+  const [cities,setCities]=useState<ICity[]>([])
 
   let allUser
   const getAllUsers = async () => {
@@ -59,11 +66,24 @@ function AppContext({ children }: { children: ReactNode }) {
     }
   }
 
+  let Allcities
+  const getCities = async () => {
+    try {
+      Allcities= await axios.get("http://localhost:8081/city")
+      setCities(Allcities.data)
+      console.log(Allcities.data)
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     getAllUsers()
+    getCities()
   }, [allUser])
 
-  return <UsersContext.Provider value={{ userData, setUserData, search, setSearch, getAllUsers, isLoading, setIsLoading }}>
+  return <UsersContext.Provider value={{ userData, setUserData, search, setSearch, getAllUsers, isLoading, setIsLoading,cities}}>
     {children}
   </UsersContext.Provider>
 }

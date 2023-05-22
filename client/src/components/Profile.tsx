@@ -3,9 +3,8 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../context/AppContext";
-import Loader from "./Loader";
+import Loader from "./loader/Loader";
 import DeleteModal from "./modal/DeleteModal";
-
 
 interface IUser {
   Id?: number;
@@ -94,6 +93,7 @@ function Profile({ id }: idData) {
 
   //Save changes
   const editUserHandler = async () => {
+    context?.setIsLoading(true)
     try {
       let updatedUser = await axios.patch(
         `http://localhost:8081/users/update/${id}`,
@@ -101,8 +101,10 @@ function Profile({ id }: idData) {
       );
       context?.getAllUsers();
       navigate("/");
+      context?.setIsLoading(false)
     } catch (e) {
       console.log(e);
+      context?.setIsLoading(false)
     }
     setIsEdited(true);
   };
@@ -262,17 +264,7 @@ function Profile({ id }: idData) {
                                         ? currentUser.city
                                         : "Select City"}
                                     </option>
-                                    <option value="Kozhikode">Kozhikode</option>
-                                    <option value="Malappuram">
-                                      Malappuram
-                                    </option>
-                                    <option value="Thrissur"> Thrissur</option>
-                                    <option value="Ernakulam">Ernakulam</option>
-                                    <option value="Kannur">Kannur</option>
-                                    <option value="Kollam">Kollam</option>
-                                    <option value="Trivandrum">
-                                      Trivandrum
-                                    </option>
+                                   {context?.cities?.map(item=><option value={item.city}>{item.city}</option>)}
                                   </select>
                                 </div>
                               </div>

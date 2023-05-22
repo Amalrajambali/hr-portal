@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../context/AppContext";
-import Loader from "./Loader";
+import Loader from "./loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -51,10 +51,6 @@ function AddUsers() {
         console.log(e);
       }
     }
-  };
-
-  const test = () => {
-    toast("hello");
   };
 
   // Loading spinner
@@ -175,18 +171,8 @@ function AddUsers() {
                               <div className="control">
                                 <div className="select">
                                   <select onChange={handleChange} name="city">
-                                    <option>Select City</option>
-                                    <option value="Kozhikode">Kozhikode</option>
-                                    <option value="Malappuram">
-                                      Malappuram
-                                    </option>
-                                    <option value="Thrissur"> Thrissur</option>
-                                    <option value="Ernakulam">Ernakulam</option>
-                                    <option value="Kannur">Kannur</option>
-                                    <option value="Kollam">Kollam</option>
-                                    <option value="Trivandrum">
-                                      Trivandrum
-                                    </option>
+                                    <option value="Select City">Select City</option>
+                                    {context?.cities?.map((item) =>(<option value={item.city}>{item.city}</option>))}
                                   </select>
                                 </div>
                               </div>
@@ -239,7 +225,6 @@ function AddUsers() {
                           <button
                             type="submit"
                             className="btn btn-primary btn-lg"
-                            onClick={test}
                           >
                             Register
                           </button>
