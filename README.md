@@ -1,4 +1,4 @@
-# hr-portal
+# Hr-Portal
 
 - HomePage
 ![Hr homepage](https://github.com/Amalrajambali/hr-portal/assets/66947502/eebda80a-d888-494b-a87c-cf7b584403e4)
