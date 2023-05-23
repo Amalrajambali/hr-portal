@@ -1,3 +1,4 @@
+require("dotenv").config()
 import express, { Application, Request, Response } from "express"
 import { sp } from "@pnp/sp-commonjs";
 import { SPFetchClient } from "@pnp/nodejs-commonjs";
@@ -14,8 +15,8 @@ const SpfxConnection = () => {
       fetchClientFactory: () =>
         new SPFetchClient(
           "https://2mxff3.sharepoint.com/sites/Amalraj",
-          "82f6321f-641b-4457-b69b-a1daeb46c101",
-          "tbS1nEE37MNxRwVQJIS1XDrcF7/GPxF5cCeupotUWw0="
+          process.env.CLIENT_ID as string,
+          process.env.CLIENT_SECRET as string
         ),
     },
   });

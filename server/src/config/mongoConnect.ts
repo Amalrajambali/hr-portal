@@ -1,5 +1,6 @@
+require("dotenv").config()
 const mongoose = require("mongoose")
-let password = encodeURIComponent("#Amal512");
+let password = encodeURIComponent(process.env.DB_PASSWORD as string);
 
 const dbConnect = () => {
     return mongoose.connect(
