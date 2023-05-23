@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-const { Schema } = mongoose;
+// const Mongoose = require("mongoose");
+const { Schema , model } = require("mongoose");
 
 
 const citySchema = new Schema({
@@ -10,5 +10,5 @@ const citySchema = new Schema({
 
 })
 
-const City = mongoose.model('City', citySchema);
+const City = model('City', citySchema);
 module.exports = City
